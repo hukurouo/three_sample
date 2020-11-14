@@ -34,13 +34,13 @@ window.addEventListener("DOMContentLoaded", () => {
   scene.add(grid);
 
   const mtlLoader = new MTLLoader();
-  mtlLoader.setPath('./models/');
+  mtlLoader.setPath('../models/');
   mtlLoader.load('switch.mtl', (materials) => {
     materials.preload();
     console.log(materials)
     const objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
-    objLoader.setPath('./models/');
+    objLoader.setPath('../models/');
     objLoader.load('switch.obj', (object) => {
       const mesh = object;
       scene.add(mesh);
