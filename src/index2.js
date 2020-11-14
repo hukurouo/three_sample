@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import { MeshToonMaterial } from "three";
 
 window.addEventListener("DOMContentLoaded", () => {
   const VIEWPORT_W = window.innerWidth;
@@ -26,44 +27,55 @@ window.addEventListener("DOMContentLoaded", () => {
     1000
   );
 
-  camera.position.set(10, 10, 10);
+  camera.position.set(10, 5, 15);
+
 
   const controls = new OrbitControls(camera, renderer.domElement);
 
   var grid = new THREE.GridHelper(100, 10);
   scene.add(grid);
-
+  
   const mtlLoader = new MTLLoader();
   mtlLoader.setPath('../models/');
-  mtlLoader.load('switch.mtl', (materials) => {
+  mtlLoader.load('spctr.mtl', (materials) => {
     materials.preload();
     console.log(materials)
     const objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('../models/');
-    objLoader.load('switch.obj', (object) => {
+    objLoader.load('spctr.obj', (object) => {
       const mesh = object;
       scene.add(mesh);
-  
     });
   })
-  
 
-  // 箱を作成
-  const geometry = new THREE.BoxGeometry(11, 0.1, 3);
-  const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
-  const box = new THREE.Mesh(geometry, material);
-  box.position.z = -5;
-  scene.add(box);
+  const mtlLoader2 = new MTLLoader();
+  mtlLoader2.setPath('../models/');
+  mtlLoader2.load('switch.mtl', (materials) => {
+    materials.preload();
+    console.log(materials)
+    const objLoader2 = new OBJLoader();
+    objLoader2.setMaterials(materials);
+    objLoader2.setPath('../models/');
+    objLoader2.load('switch.obj', (object) => {
+      const mesh = object;
+      mesh.position.set(4, 0, 0);
+      scene.add(mesh);
+    });
+  })
 
   // 平行光源を生成
   const light = new THREE.DirectionalLight(0xffffff);
   light.position.set(1, 1, 1);
   scene.add(light);
 
+  const light2 = new THREE.DirectionalLight(0xffffff);
+  light2.position.set(-1, 1, -1);
+  scene.add(light2);
+
+  scene.background = new THREE.Color( 0xffffff );
+
   controls.update();
-
-
 
   
   const tick = () => {
@@ -72,8 +84,8 @@ window.addEventListener("DOMContentLoaded", () => {
     controls.update();
 
 
-    box.rotation.x += 0.005;
-    box.rotation.y += 0.005;
+    //box.rotation.x += 0.005;
+    //box.rotation.y += 0.005;
 
     // 描画
     renderer.render(scene, camera);
