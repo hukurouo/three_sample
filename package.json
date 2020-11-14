@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "build": "webpack",
-    "start": "webpack serve"
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development --watch"
   },
   "dependencies": {
     "three": "^0.121.1"

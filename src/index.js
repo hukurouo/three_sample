@@ -26,9 +26,12 @@ window.addEventListener("DOMContentLoaded", () => {
     1000
   );
 
-  camera.position.set(0, 0, 1);
+  camera.position.set(10, 10, 10);
 
   const controls = new OrbitControls(camera, renderer.domElement);
+
+  var grid = new THREE.GridHelper(100, 10);
+  scene.add(grid);
 
   const mtlLoader = new MTLLoader();
   mtlLoader.setPath('./models/');
@@ -47,8 +50,8 @@ window.addEventListener("DOMContentLoaded", () => {
   
 
   // 箱を作成
-  const geometry = new THREE.BoxGeometry(1, 0.1, 1);
-  const material = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+  const geometry = new THREE.BoxGeometry(1, 0.1, 3);
+  const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
   const box = new THREE.Mesh(geometry, material);
   box.position.z = -5;
   scene.add(box);
