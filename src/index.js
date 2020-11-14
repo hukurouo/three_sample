@@ -39,10 +39,7 @@ window.addEventListener("DOMContentLoaded", () => {
     objLoader.setMaterials(materials);
     objLoader.setPath('./models/');
     objLoader.load('switch.obj', (object) => {
-      console.log(object)
-      objmodel = object.clone();
-      objmodel.scale.set(100, 100, 100);
-      const mesh = objmodel;
+      const mesh = object;
       this.scene.add(mesh);
   
     });
