@@ -4,6 +4,8 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 import { MeshToonMaterial } from "three";
 
+
+
 window.addEventListener("DOMContentLoaded", () => {
   const VIEWPORT_W = window.innerWidth;
   const VIEWPORT_H = window.innerHeight;
@@ -34,6 +36,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
   var grid = new THREE.GridHelper(100, 10);
   scene.add(grid);
+
+  var object_spctr = null;
   
   const mtlLoader = new MTLLoader();
   mtlLoader.setPath('../models/');
@@ -45,12 +49,16 @@ window.addEventListener("DOMContentLoaded", () => {
     objLoader.setPath('../models/');
     objLoader.load('spctr.obj', (object) => {
       const mesh = object;
+      object_spctr = object;
       scene.add(mesh);
     });
   })
 
   const mtlLoader2 = new MTLLoader();
   mtlLoader2.setPath('../models/');
+
+  var objectEX = null;//nullで定義する
+
   mtlLoader2.load('switch.mtl', (materials) => {
     materials.preload();
     console.log(materials)
@@ -59,10 +67,12 @@ window.addEventListener("DOMContentLoaded", () => {
     objLoader2.setPath('../models/');
     objLoader2.load('switch.obj', (object) => {
       const mesh = object;
+      objectEX = object;
       mesh.position.set(4, 0, 0);
       scene.add(mesh);
     });
   })
+
 
   // 平行光源を生成
   const light = new THREE.DirectionalLight(0xffffff);
@@ -77,12 +87,22 @@ window.addEventListener("DOMContentLoaded", () => {
 
   controls.update();
 
+
+
   
   const tick = () => {
     requestAnimationFrame(tick);
 
     controls.update();
 
+    if(object_spctr){
+      object_spctr.rotation.y += 0.005;
+    }
+    if(objectEX){
+      objectEX.rotation.y += 0.005;
+      objectEX.rotation.x += 0.005;
+      objectEX.rotation.z += 0.005;
+    }
 
     //box.rotation.x += 0.005;
     //box.rotation.y += 0.005;
