@@ -40,7 +40,7 @@ window.addEventListener("DOMContentLoaded", () => {
     objLoader.setPath('./models/');
     objLoader.load('switch.obj', (object) => {
       const mesh = object;
-      this.scene.add(mesh);
+      scene.add(mesh);
   
     });
   })
