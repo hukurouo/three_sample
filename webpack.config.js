@@ -16,18 +16,18 @@ module.exports = {
     //  出力ファイルのディレクトリ名
     path: `${__dirname}/dist`,
     // 出力ファイル名
-    filename: '[name].js',
+    filename: '[name]/index.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
       viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
       chunks: ['page1'],
-      filename: 'page1.html'
+      filename: 'page1/index.html'
     }),
     new HtmlWebpackPlugin({
       viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
       chunks: ['page2'],
-      filename: 'page2.html'
+      filename: 'page2/index.html'
     })
   ],
   module: {
