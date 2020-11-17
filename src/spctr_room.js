@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
-import { EventDispatcher } from "three";
 
 window.addEventListener("DOMContentLoaded", () => {
   const VIEWPORT_W = window.innerWidth;
@@ -42,8 +41,38 @@ window.addEventListener("DOMContentLoaded", () => {
   meshFloor.receiveShadow = true;
   scene.add(meshFloor);
 
+  const manager = new THREE.LoadingManager();
+manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
+
+	console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+  var baseElement = document.getElementById('loading');
+  baseElement.innerHTML = 'Started loading file: ' + url
+
+};
+
+manager.onLoad = function ( ) {
+
+	console.log( 'Loading complete!');
+  var baseElement = document.getElementById('loading');
+  baseElement.innerHTML = ""
+};
+
+
+manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+
+	console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+  var baseElement = document.getElementById('loading');
+  baseElement.innerHTML = 'Started loading file: ' + url
+};
+
+manager.onError = function ( url ) {
+
+	console.log( 'There was an error loading ' + url );
+
+};
+
   
-  const mtlLoader = new MTLLoader();
+  const mtlLoader = new MTLLoader( manager );
   mtlLoader.setPath('../models/');
   mtlLoader.load('spctr_room.mtl', (materials) => {
     materials.preload();

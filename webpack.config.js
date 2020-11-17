@@ -9,7 +9,7 @@ module.exports = {
   },
   entry: {
     'spctr_room': './src/spctr_room.js',
-    'page2': './src/index2.js'
+    'spctr_switch': './src/spctr_switch.js'
   },
   // ファイルの出力設定
   output: {
@@ -27,9 +27,11 @@ module.exports = {
       filename: 'spctr_room/index.html'
     }),
     new HtmlWebpackPlugin({
+      title: 'spctr_switch',
+      template: './src/template.html',
       viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
-      chunks: ['page2'],
-      filename: 'page2/index.html'
+      chunks: ['spctr_switch'],
+      filename: 'spctr_switch/index.html'
     })
   ],
   module: {

@@ -38,8 +38,38 @@ window.addEventListener("DOMContentLoaded", () => {
   scene.add(grid);
 
   var object_spctr = null;
+
+  const manager = new THREE.LoadingManager();
+  manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
   
-  const mtlLoader = new MTLLoader();
+    console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+    var baseElement = document.getElementById('loading');
+    baseElement.innerHTML = 'Started loading file: ' + url
+  
+  };
+  
+  manager.onLoad = function ( ) {
+  
+    console.log( 'Loading complete!');
+    var baseElement = document.getElementById('loading');
+    baseElement.innerHTML = ""
+  };
+  
+  
+  manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+  
+    console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+    var baseElement = document.getElementById('loading');
+    baseElement.innerHTML = 'Started loading file: ' + url
+  };
+  
+  manager.onError = function ( url ) {
+  
+    console.log( 'There was an error loading ' + url );
+  
+  };
+  
+  const mtlLoader = new MTLLoader(manager);
   mtlLoader.setPath('../models/');
   mtlLoader.load('spctr.mtl', (materials) => {
     materials.preload();
@@ -54,7 +84,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   })
 
-  const mtlLoader2 = new MTLLoader();
+  const mtlLoader2 = new MTLLoader(manager);
   mtlLoader2.setPath('../models/');
 
   var objectEX = null;//nullで定義する
