@@ -8,7 +8,7 @@ module.exports = {
     open: true
   },
   entry: {
-    'page1': './src/index.js',
+    'spctr_room': './src/spctr_room.js',
     'page2': './src/index2.js'
   },
   // ファイルの出力設定
@@ -20,9 +20,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      title: 'spctr_room',
+      template: './src/template.html',
       viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
-      chunks: ['page1'],
-      filename: 'page1/index.html'
+      chunks: ['spctr_room'],
+      filename: 'spctr_room/index.html'
     }),
     new HtmlWebpackPlugin({
       viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
