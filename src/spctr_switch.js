@@ -126,7 +126,7 @@ window.addEventListener("DOMContentLoaded", () => {
     controls.update();
 
     if(object_spctr){
-      object_spctr.rotation.y += 0.005;
+      //object_spctr.rotation.y += 0.005;
     }
     if(objectEX){
       objectEX.rotation.y += 0.005;

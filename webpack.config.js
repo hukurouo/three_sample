@@ -9,6 +9,7 @@ module.exports = {
   },
   entry: {
     'spctr_room': './src/spctr_room.js',
+    'hatobatsugu': './src/tugu.js',
     'spctr_switch': './src/spctr_switch.js'
   },
   // ファイルの出力設定
@@ -25,6 +26,13 @@ module.exports = {
       viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
       chunks: ['spctr_room'],
       filename: 'spctr_room/index.html'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'hatobatsugu',
+      template: './src/template.html',
+      viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
+      chunks: ['hatobatsugu'],
+      filename: 'hatobatsugu/index.html'
     }),
     new HtmlWebpackPlugin({
       title: 'spctr_switch',

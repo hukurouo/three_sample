@@ -26,8 +26,8 @@ window.addEventListener("DOMContentLoaded", () => {
     1,
     1000
   );
-
-  camera.position.set(10, 20, 25);
+  camera.lookAt(0, 10, -10);
+  camera.position.set(-10, 15, 35);
 
 
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -74,12 +74,12 @@ manager.onError = function ( url ) {
   
   const mtlLoader = new MTLLoader( manager );
   mtlLoader.setPath('../models/');
-  mtlLoader.load('spctr_room.mtl', (materials) => {
+  mtlLoader.load('tugu.mtl', (materials) => {
     materials.preload();
     const objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('../models/');
-    objLoader.load('spctr_room.obj', (object) => {
+    objLoader.load('tugu.obj', (object) => {
       object.receiveShadow = true;
       object.castShadow = true;
       const mesh = object;
@@ -93,21 +93,54 @@ manager.onError = function ( url ) {
   })
 
 
+
   // 平行光源を生成
-  const light2 = new THREE.PointLight(0xFFFFFF, 2, 11, 1.0);
-  light2.position.set(0, 6, 1);
+  const light2 = new THREE.PointLight(0xf4a460, 3, 11, 1.0);
+  light2.position.set(3.7, 6.5, -1);
   light2.castShadow = true;
+  console.log(light2)
   scene.add(light2);
+
+  const light3 = new THREE.PointLight(0xffffff, 1, 11, 1.0);
+  light3.position.set(-1, 5, 2);
+  light3.castShadow = true;
+  scene.add(light3);
+  
+  const geometry = new THREE.BoxGeometry();
+  const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+  const cube = new THREE.Mesh( geometry, material );
+  cube.castShadow = true;
+  //scene.add( cube );
+  cube.position.set(3.7, 9, -1);
+
+  //const axesHelper = new THREE.AxesHelper( 15 );
+  //scene.add( axesHelper );
+
 
 
 
   controls.update();
 
+  function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  let frame = 0;
   const tick = () => {
     requestAnimationFrame(tick);
+    // フレーム数をインクリメント
+  frame++;
+
+  // フレーム数が２で割り切れなければ描画しない
+  if (frame % 2 == 0) {
+    return;
+  }
 
     controls.update();
-
+    if(getRandomArbitrary(1,1000) >= 5){
+      light2.intensity = 3;
+    } else {
+    light2.intensity = 0;
+    }
     // 描画
     renderer.render(scene, camera);
   };
