@@ -8,9 +8,9 @@ module.exports = {
     open: true
   },
   entry: {
-    'spctr_room': './src/spctr_room.js',
-    'hatobatsugu': './src/tugu.js',
-    'spctr_switch': './src/spctr_switch.js'
+    'spctr_room': './src/spctr_room.ts',
+    'hatobatsugu': './src/tugu.ts',
+    'spctr_switch': './src/spctr_switch.ts'
   },
   // ファイルの出力設定
   output: {
@@ -42,24 +42,16 @@ module.exports = {
       filename: 'spctr_switch/index.html'
     })
   ],
+  resolve: {
+    extensions: [".ts", ".js"]
+  },
   module: {
     rules: [
       {
-        // 拡張子 .js の場合
-        test: /\.js$/,
-        use: [
-          {
-            // Babel を利用する
-            loader: "babel-loader",
-            // Babel のオプションを指定する
-            options: {
-              presets: [
-                // プリセットを指定することで、ES2020 を ES5 に変換
-                "@babel/preset-env"
-              ]
-            }
-          }
-        ]
+        // 拡張子 .ts の場合
+        test: /\.ts$/,
+        // TypeScript をコンパイルする
+        use: "ts-loader"
       }
     ]
   },
